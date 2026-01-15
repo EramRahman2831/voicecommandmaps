@@ -1,0 +1,9 @@
+Command	                            When
+hey maps, how far until turn	    navigation only
+hey maps, stop navigation	        anytime
+hey maps, add a stop	            not navigating
+hey maps, reroute	                not navigating
+hey maps, turn off voice mode	    anytime
+hey maps, delete stop               not navigating
+hey maps, turn off microphone       anytime
+hey maps, enter navigation          not navigating

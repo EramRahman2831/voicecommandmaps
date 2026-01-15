@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Maps UI</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link
+      href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+
+    <!-- Sidebar -->
+    <div id="sidebar" class="hidden">
+      <div class="directions-header">Directions</div>
+      <div id="summary"></div>
+      <div id="steps"></div>
+    </div>
+
+    <!-- Controls -->
+    <div id="controls">
+
+      <!-- Proper toggle restored -->
+      <label class="toggle">
+        <input type="checkbox" id="useCurrent" />
+        <span class="slider"></span>
+        <span class="toggle-text">Use current location</span>
+      </label>
+
+      <div class="input-group">
+        <input id="start" placeholder="Start address" autocomplete="off" />
+        <div class="suggestions" id="start-suggestions"></div>
+      </div>
+
+      <div id="stopsContainer"></div>
+
+      <div class="input-group">
+        <input id="end" placeholder="Destination" autocomplete="off" />
+        <div class="suggestions" id="end-suggestions"></div>
+      </div>
+
+      <!-- Route controls grouped -->
+      <div class="route-actions">
+        <button id="routeBtn">Get Route</button>
+        <button id="addStopBtn">Add Stop</button>
+          <div id="stopWarning" class="stop-warning hidden">
+            You can only add one stop per route
+          </div>
+      </div>
+
+      <!-- Voice separated -->
+      <div class="voice-section">
+        <button id="voiceBtn">Voice: Off</button>
+        <button id="micBtn" aria-label="Voice commands"></button>
+      </div>
+
+    </div>
+
+    <!-- Voice Commands Help Button -->
+<button id="voiceHelpBtn">?</button>
+
+<!-- Voice Commands Cheat Sheet -->
+<div id="voiceHelpOverlay" class="hidden">
+  <div id="voiceHelpCard">
+    <div class="help-header">
+      <span>Voice Commands</span>
+      <button id="closeHelp">×</button>
+    </div>
+      <ul class="help-list">
+        <li><b>Hey Maps, how far until turn</b><span>Navigation only</span></li>
+        <li><b>Hey Maps, stop navigation</b><span>Anytime</span></li>
+        <li><b>Hey Maps, add a stop</b><span>Not navigating</span></li>
+        <li><b>Hey Maps, reroute</b><span>Not navigating</span></li>
+        <li><b>Hey Maps, delete stop</b><span>Not navigating</span></li>
+        <li><b>Hey Maps, enter navigation</b><span>Not navigating</span></li>
+        <li><b>Hey Maps, turn off voice mode</b><span>Anytime</span></li>
+        <li><b>Hey Maps, turn off microphone</b><span>Anytime</span></li>
+      </ul>
+    </div>
+  </div>
+
+    <!-- Map -->
+    <div id="map"></div>
+
+    <!-- Navigation -->
+    <button id="startNav" class="hidden">Get Started</button>
+    <button id="exitNav" class="hidden">← Exit Navigation</button>
+
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
+    <script src="src/app.js"></script>
+    <script src="src/voice.js"></script>
+
+  </body>
+</html>

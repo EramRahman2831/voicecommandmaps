@@ -1,0 +1,665 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+/* Sidebar */
+#sidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 320px;
+  height: 100vh;
+  background: white;
+  padding: 14px;
+  overflow-y: auto;
+  box-shadow: 2px 0 10px rgba(0,0,0,0.2);
+  z-index: 2;
+  transition: transform 0.3s ease;
+}
+
+#sidebar.hidden {
+  transform: translateX(-100%);
+}
+
+/* Header */
+.directions-header {
+  background: #f2c94c;
+  font-weight: 800;
+  font-size: 20px;
+  padding: 10px 12px;
+  margin: -14px -14px 12px -14px;
+  border-bottom: 1px solid #e0b93c;
+}
+
+/* Summary */
+#summary {
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #ddd;
+}
+
+.summary-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
+/* Steps */
+.step {
+  background: #f7f7f7;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+/* Controls */
+#controls {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  background: white;
+  padding: 12px;
+  border-radius: 8px;
+  width: 260px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  z-index: 3;
+}
+
+.input-group {
+  position: relative;
+  margin-bottom: 8px;
+}
+
+#controls input {
+  width: 100%;
+  padding: 6px;
+}
+
+#controls button {
+  width: 100%;
+  padding: 8px;
+  background: #e6b800;
+  border: none;
+  border-radius: 6px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+#controls button:hover {
+  background: #d4aa00;
+}
+
+
+#addStopBtn {
+  margin-top: 6px;
+  background: #ddd;
+}
+
+#addStopBtn:hover {
+  background: #ccc;
+}
+
+/* Suggestions */
+.suggestions {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: white;
+  max-height: 260px;
+  overflow-y: auto;
+  border-radius: 8px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+  z-index: 10;
+}
+
+.suggestions div {
+  padding: 10px 12px;
+  cursor: pointer;
+  border-bottom: 1px solid #eee;
+}
+
+.suggestions div:hover {
+  background: #f2f2f2;
+}
+
+/* Map */
+#map {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+}
+
+/* Navigation buttons */
+#startNav {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 14px 20px;
+  font-weight: 700;
+  background: #1db7dd;
+  color: white;
+  border-radius: 30px;
+  border: none;
+  z-index: 4;
+}
+
+#startNav.hidden {
+  display: none;
+}
+
+#exitNav {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  padding: 12px 16px;
+  border-radius: 20px;
+  border: none;
+  font-weight: 700;
+  background: white;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+  cursor: pointer;
+  z-index: 4; /* 🔥 ABOVE MAP */
+}
+
+#exitNav.hidden {
+  display: none;
+}
+
+/* Markers */
+.marker {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  color: white;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.marker.start { background: #2ecc71; }
+.marker.end { background: #e74c3c; }
+.marker.stop { background: #f39c12; }
+
+/* Toggle (Use current location) */
+.toggle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.toggle input {
+  display: none;
+}
+
+.slider {
+  width: 42px;
+  height: 22px;
+  background: #ccc;
+  border-radius: 999px;
+  position: relative;
+  transition: background 0.25s;
+}
+
+.slider::before {
+  content: "";
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  background: white;
+  border-radius: 50%;
+  top: 2px;
+  left: 2px;
+  transition: transform 0.25s;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+}
+
+.toggle input:checked + .slider {
+  background: #1db7dd;
+}
+
+.toggle input:checked + .slider::before {
+  transform: translateX(20px);
+}
+
+.toggle-text {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+#controls input:disabled {
+  background: #f0f0f0;
+  color: #777;
+  cursor: not-allowed;
+}
+
+#addStopBtn {
+  margin-top: 8px;
+}
+
+#voiceBtn {
+  margin-top: 9px;
+  background: #eee;
+}
+
+#voiceBtn.active {
+  background: #15a02c;
+  color: white;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.stop-remove {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+
+  width: 16px !important;
+  height: 16px !important;
+  min-width: 16px;
+  padding: 0 !important;
+  margin: 0;
+
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+
+  font-size: 14px;
+  line-height: 16px;
+  font-weight: 600;
+
+  color: #888;
+  cursor: pointer;
+}
+
+.stop-remove:hover,
+.stop-remove:focus {
+  font-weight: 900;
+  background: rgba(231, 76, 60, 0.15);
+  color: #000000;
+  transform: translateY(-50%) scale(1.15);
+}
+
+.input-group input {
+  padding-right: 32px; /* space for the X */
+  
+}
+
+.stop-remove {
+  opacity: 0.6;
+}
+
+.input-group:hover .stop-remove {
+  opacity: 1;
+}
+
+.stop-warning {
+  margin-top: 6px;
+  font-size: 12px;
+  color: #c0392b;
+  font-weight: 600;
+}
+
+.stop-warning.hidden {
+  display: none;
+}
+
+#map {
+  touch-action: pan-x pan-y;
+}
+
+button {
+  touch-action: manipulation;
+}
+
+#micBtn {
+  width: 100%;
+  height: 42px;
+  margin-top: 10px;
+  border-radius: 6px;
+  border: none;
+  background: #f3f3f3;
+  cursor: pointer;
+  position: relative;
+}
+
+/* Mic stem */
+#micBtn::before {
+  content: "";
+  position: absolute;
+  top: 9px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 10px;
+  height: 18px;
+  border-radius: 6px;
+  background: #555;
+}
+
+/* Mic base */
+#micBtn::after {
+  content: "";
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 14px;
+  height: 4px;
+  border-radius: 2px;
+  background: #555;
+}
+
+/* Active listening */
+#micBtn.active {
+  background: #1db7dd;
+}
+
+#micBtn.active::before,
+#micBtn.active::after {
+  background: white;
+}
+
+/* ? Button */
+#voiceHelpBtn {
+  position: fixed;
+  bottom: 70px;
+  right: 18px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  background: #1db7dd;
+  color: white;
+  font-size: 20px;
+  font-weight: 800;
+  cursor: pointer;
+  z-index: 10;
+}
+
+/* Overlay */
+#voiceHelpOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 20;
+}
+
+#voiceHelpOverlay.hidden {
+  display: none;
+}
+
+/* Card */
+#voiceHelpCard {
+  width: 320px;
+  background: white;
+  border-radius: 12px;
+  padding: 14px;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+  animation: popIn 0.2s ease;
+}
+
+/* Header */
+.help-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 800;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+#closeHelp {
+  background: none;
+  border: none;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+/* List */
+.help-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.help-list li {
+  display: flex;
+  flex-direction: column;
+  padding: 6px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.help-list li span {
+  font-size: 12px;
+  color: #666;
+}
+
+/* Animation */
+@keyframes popIn {
+  from { transform: scale(0.9); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+@media (max-width: 768px) {
+
+  /* map */
+  #map {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    padding-bottom: 260px;
+  }
+
+  /* directions panel */
+  #sidebar {
+    height: 20vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    max-height: 38vh;
+    background: white;
+    border-radius: 0 0 18px 18px;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.2);
+    overflow-y: auto;
+    z-index: 6;
+  }
+
+  #sidebar.hidden {
+    display: none;
+  }
+
+  .directions-header {
+    font-size: 18px;
+    padding: 10px;
+  }
+
+  #summary {
+    font-size: 13px;
+    font-weight:1000;
+    padding-bottom: 6px;
+  }
+
+  .summary-item span {
+    font-size: 13px;
+  }
+
+  /* show only first few steps for mobile mode */
+  #steps .step {
+    font-size: 14px;
+    padding: 8px 10px;
+    margin-bottom: 6px;
+    text-align: center;
+    font-weight: 600;
+  }
+
+  #steps .step:nth-child(n+4) {
+    display: none;
+  }
+
+  /* controls always at bottom */
+  #controls {
+    top: 800px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    background: white;
+    padding: 14px 14px 26px;
+
+    border-radius: 18px 18px 0 0;
+    box-shadow: 0 -6px 20px rgba(0,0,0,0.25);
+
+    max-height: 30vh;
+    overflow-y: auto;
+
+    z-index: 7;
+    transform: translateY(0);
+  }
+
+  /* hide inputs only during navigation */
+  body.nav-active #controls {
+    display: none !important;
+  }
+
+  body:not(.nav-active) #controls {
+    display: block !important;
+    bottom: 0;
+    transform: translateY(0);
+  }
+
+  #controls input,
+  #controls button {
+    padding: 12px;
+    font-size: 16px;
+  }
+
+  /* voice and mic buttons */
+  .voice-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+  }
+
+  #voiceBtn,
+  #micBtn {
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    border-radius: 50%;
+  }
+
+  #voiceBtn {
+    background: #eee;
+    position: relative;
+  }
+
+  #voiceBtn.active {
+    background: #15a02c;
+  }
+
+  #voiceBtn::before {
+    font-size: 18px;
+  }
+
+  #micBtn {
+    background: #f3f3f3;
+    position: relative;
+  }
+
+  #micBtn::before {
+    content: "";
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 9px;
+    height: 16px;
+    border-radius: 6px;
+    background: #555;
+  }
+
+  #micBtn::after {
+    content: "";
+    position: absolute;
+    bottom: 9px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 12px;
+    height: 4px;
+    border-radius: 2px;
+    background: #555;
+  }
+
+  #micBtn.active {
+    background: #1db7dd;
+  }
+
+  #micBtn.active::before,
+  #micBtn.active::after {
+    background: white;
+  }
+
+  /* get started button */
+  #startNav {
+    position: fixed;
+    bottom: 46px;
+    right: 16px;
+    padding: 10px 16px;
+    font-size: 14px;
+    border-radius: 22px;
+    z-index: 9;
+  }
+
+  /* exit navigation */
+  #exitNav {
+    position: fixed;
+    bottom: 20px;
+    left: 16px;
+    padding: 10px 14px;
+    border-radius: 20px;
+    z-index: 9;
+  }
+
+  /* help button */
+  #voiceHelpBtn {
+    position: fixed;
+    bottom: 96px;
+    right: 16px;
+    width: 36px;
+    height: 36px;
+    font-size: 20px;
+    border-radius: 50%;
+    z-index: 10;
+  }
+
+  /* stop remove button */
+  .stop-remove {
+    font-size: 16px;
+    font-weight: 700;
+  }
+
+  .stop-remove:hover {
+    font-weight: 900;
+    transform: translateY(-50%) scale(1.15);
+  }
+
+}
