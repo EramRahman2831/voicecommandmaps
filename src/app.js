@@ -2,7 +2,7 @@
 
 // set mapbox access token
 mapboxgl.accessToken =
-  "pk.eyJ1IjoiZXJhbTI4MzEiLCJhIjoiY21rZXAwbXZzMDlscjNnbjI1Y3d2NWVlNSJ9.giMSz5H4E0tb0vNA-trvnw";
+  "sk.eyJ1IjoiZXJhbTI4MzEiLCJhIjoiY21rZXMxMWs4MGF0NzNjb2puNHZpNTc4cSJ9.qtI2VRkghR8oCBFdjMeGfw";
 
 /* map */
 
