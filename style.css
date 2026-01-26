@@ -503,17 +503,19 @@ button {
   }
 
   #startNav {
-    bottom: 90px;
+    bottom: 160px;     
     right: 16px;
     padding: 16px 22px;
     font-size: 16px;
+    z-index: 10;       
   }
 
   #exitNav {
-    bottom: 90px;
+    bottom: 160px;
     left: 16px;
     padding: 14px 18px;
     font-size: 16px;
+    z-index: 10;
   }
 
   /* ---------- TEXT COLORS ---------- */
@@ -540,4 +542,10 @@ button {
 input:-webkit-autofill {
   -webkit-text-fill-color: #000;
   transition: background-color 9999s ease-in-out 0s;
+}
+
+@media (max-width: 900px) {
+  #startNav {
+    box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+  }
 }
