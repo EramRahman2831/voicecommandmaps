@@ -50,8 +50,11 @@ let nearTurnAnnounced = false;
 // pick a preferred voice when available
 function loadVoices() {
   const voices = speechSynthesis.getVoices();
+
   selectedVoice =
-    voices.find(v => v.name === "Google US English") || voices[0];
+    voices.find(v => v.lang === "en-US") ||
+    voices.find(v => v.lang.startsWith("en")) ||
+    voices[0];
 }
 
 speechSynthesis.onvoiceschanged = loadVoices;
@@ -59,11 +62,14 @@ loadVoices();
 
 // speak a string through the selected voice
 function speak(text) {
-  if (!voiceEnabled || !selectedVoice) return;
+  if (!voiceEnabled) return;
+
   speechSynthesis.cancel();
+
   const u = new SpeechSynthesisUtterance(text);
-  u.voice = selectedVoice;
-  u.lang = "en-US";
+  u.lang = "en-US";   
+  u.voice = selectedVoice || null;
+
   speechSynthesis.speak(u);
 }
 
