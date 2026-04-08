@@ -12,8 +12,8 @@ body {
   position: fixed;
   left: 0;
   top: 0;
-  width: 320px;
-  height: 100vh;
+  width: clamp(260px, 26vw, 360px);
+  height: 100dvh;
   background: white;
   padding: 14px;
   overflow-y: auto;
@@ -65,7 +65,7 @@ body {
   background: white;
   padding: 12px;
   border-radius: 8px;
-  width: 260px;
+  width: clamp(240px, 22vw, 320px);
   box-shadow: 0 2px 10px rgba(0,0,0,0.2);
   z-index: 3;
 }
@@ -138,8 +138,8 @@ body {
 /* Navigation buttons */
 #startNav {
   position: fixed;
-  bottom: 20px;
-  right: 20px;
+  bottom: clamp(16px, 3vh, 24px);
+  right: clamp(12px, 2vw, 20px);
   padding: 14px 20px;
   font-weight: 700;
   background: #1db7dd;
@@ -155,8 +155,8 @@ body {
 
 #exitNav {
   position: fixed;
-  bottom: 20px;
-  left: 20px;
+  bottom: clamp(16px, 3vh, 24px);
+  left: clamp(12px, 2vw, 20px);
   padding: 12px 16px;
   border-radius: 20px;
   border: none;
@@ -164,7 +164,7 @@ body {
   background: white;
   box-shadow: 0 6px 16px rgba(0,0,0,0.25);
   cursor: pointer;
-  z-index: 4; /* 🔥 ABOVE MAP */
+  z-index: 4; 
 }
 
 #exitNav.hidden {
@@ -453,6 +453,39 @@ button {
 @keyframes popIn {
   from { transform: scale(0.9); opacity: 0; }
   to { transform: scale(1); opacity: 1; }
+}
+
+@media (max-width: 1200px) {
+
+  #controls {
+    width: clamp(220px, 28vw, 300px);
+    right: 10px;
+  }
+
+  #sidebar {
+    width: clamp(240px, 30vw, 320px);
+  }
+
+  #startNav, #exitNav {
+    bottom: 16px;
+  }
+}
+
+#controls {
+  max-width: 95vw;
+}
+
+#sidebar {
+  max-width: 95vw;
+}
+
+#map {
+  width: 100vw;
+  height: 100dvh;
+}
+
+input, button {
+  font-size: clamp(14px, 1.2vw, 16px);
 }
 
 @media (max-width: 900px) {
